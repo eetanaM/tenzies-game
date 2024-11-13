@@ -1,0 +1,75 @@
+*{
+  box-sizing: border-box;
+  font-family: "LXGW WenKai Mono TC", monospace;
+  margin: 0;
+}
+
+main{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0B2434;
+}
+
+
+.main--layout{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  min-width: 360px;
+  height: 100%;
+  margin: 30px;
+  background: #F5F5F5;
+  border-radius: 10px;
+}
+
+.main--layout > h1{
+  font-style: normal;
+  font-size: 3.2rem;
+  text-align: center;
+  min-width: 200px;
+}
+
+.main--layout > h3 {
+  margin: 10px 0;
+  max-width: 400px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #4A4E74;
+}
+
+.main--layout-flipboard {
+  max-height: 200px;
+  max-width: 350px;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  justify-content: space-evenly;
+}
+
+.main--layout-button {
+  margin: 15px 0;
+  width: 240px;
+  min-height: 50px;
+  background: #5035FF;
+  border-radius: 3.81277px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.main--layout-button:focus {
+  outline: none;
+}
+
+.main--layout-button:active {
+  box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}

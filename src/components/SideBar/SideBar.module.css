@@ -1,0 +1,68 @@
+.sidebar_opener {
+    position: absolute;
+    height: 100vh;
+    width: 150px;
+    opacity: 0;
+    z-index: 999;
+}
+
+.sidebar_container {
+    position: fixed;
+    z-index: 9999;
+    height: 100vh;
+    width: 150px;
+    left: -150px;
+    padding: 5% 10px;
+    border-radius: 0 15px 15px 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 50px;
+    background-color: rgba(80, 53, 255, 0.8);
+    transition: left 0.2s linear;
+}
+
+.not_loged_in {
+    justify-content: center;
+}
+
+.sidebar_opener:hover ~ .sidebar_container {
+    left: 0;
+    transition: left 0.2s linear;
+}
+.sidebar_container:hover {
+    left: 0;
+    transition: left 0.2s linear;
+}
+
+.sidebar_profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-size: larger;
+    font-weight: bold;
+    color:aliceblue
+}
+
+.sidebar_container > a, .sidebar_container > button {
+    background-color: transparent;
+    border: none;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-size: larger;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.sidebar_container > a:hover, .sidebar_container > button:hover {
+    color: #5e48e7;
+    cursor: pointer;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+}

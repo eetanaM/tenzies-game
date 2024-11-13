@@ -1,0 +1,59 @@
+.rating_container {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    height: 90%;
+    width: 90%;
+    border-radius: 15px;
+    padding: 5%;
+
+    font-size: 1.5rem;
+    color: azure;
+    background-color: #5e48e7;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.rating_header {
+    font-size: 1.8rem;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+.rating_line_headers, .rating_line {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    gap: 20px;
+    border-bottom: 2px solid rgb(240, 255, 255);
+}
+
+.rating_line_headers {
+    padding-bottom: 5px;
+}
+
+.rating_line_headers > span:nth-child(2), .rating_line > span:nth-child(2) {
+    flex-grow: 1;
+    text-align: start;
+}
+
+.rating_line_headers > span:first-child, .rating_line_headers > span:last-child {
+    min-width: 80px;
+    text-align: center;
+}
+
+.rating_line {
+    border: none;
+}
+
+.rating_line > span:first-child, .rating_line > span:last-child {
+    min-width: 80px;
+    text-align: center;
+}
+
+.current_user {
+    color: rgb(38, 187, 18);
+    font-weight: bold;
+}

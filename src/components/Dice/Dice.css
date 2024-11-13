@@ -1,0 +1,88 @@
+.dice, .dice-held{
+    margin-right: 7px;
+    margin-top: 7px;
+    padding: 5px;
+    list-style: none;
+    box-sizing: border-box;
+    border: solid 1px #000;
+    border-radius: 3.81277px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+
+    display: inline-flex;
+    vertical-align: top;
+  }
+
+  .dice {
+    background: white;
+  }
+
+  .dice-held {
+    background: #59E391;
+  }
+
+  .dice-point::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    border-radius: 50%;
+  }
+
+  .dice_one {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dice_two {
+    justify-content: space-between;
+  }
+
+  .dice_two .dice-point:nth-child(1) {
+    align-self: flex-end;
+  }
+
+  .dice_three {
+    justify-content: space-between;
+  }
+
+  .dice_three .dice-point:nth-child(1) {
+    align-self: flex-end;
+  }
+
+  .dice_three .dice-point:nth-child(2) {
+    align-self: center;
+  }
+
+  .dice_four {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+  }
+
+  .dice_four .dice-point {
+    width: 50%;
+  }
+
+  .dice_four .dice-point:nth-child(even) {
+    text-align: right;
+  }
+
+  .dice_five {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+  }
+
+  .dice_five .dice-point:nth-child(3) {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dice_six {
+    flex-flow: wrap column;
+    justify-content: space-between;
+    align-content: space-between;
+  }
