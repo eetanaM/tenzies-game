@@ -57,9 +57,10 @@ function App() {
         }
       });
       try {
+        // Add new user as Guest to database with record = 0
         const newUserRef = doc(db, "users", auth.currentUser.uid)
         await setDoc(newUserRef, {
-          userName: auth.currentUser.displayName || "Guest",
+          userName: "Guest",
           uid: auth.currentUser.uid,
           record: 0
         })
