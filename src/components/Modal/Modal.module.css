@@ -1,32 +1,19 @@
 .modal {
-    position: absolute;
-    box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 9998;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modal .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 0.5;
-    z-index: 0;
-    cursor: pointer;
-}
-
-.modal-table {
+.modal_table {
     padding: 10px;
     position: relative;
-    z-index: 2;
+    z-index: 9999;
     width: 300px;
     min-height: 250px;
     border-radius: 10px;
@@ -38,7 +25,7 @@
     align-items: center;
 }
 
-.btn-close {
+.btn_close {
     position: absolute;
     right: 10px;
     top: 10px;
