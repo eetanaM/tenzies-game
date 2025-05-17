@@ -1,11 +1,11 @@
 .rating_container {
     display: flex;
     flex-flow: column;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: center;
     gap: 15px;
-    height: 90%;
-    width: 90%;
+    height: 85%;
+    width: 85%;
     border-radius: 15px;
     padding: 5%;
 

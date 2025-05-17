@@ -35,6 +35,7 @@ const RatingPage = () => {
 
     const usersRatings = users.map((user, index) => {
         const isCurrentUser = auth.currentUser.uid === user.uid
+        if (index > 9) return
         return (
             <p className={`${styles.rating_line} ${isCurrentUser && styles.current_user}`} key={user.uid}>
                 <span>{index === 0 ? <img src={crown} style={{height: "20px", width: "20px"}}></img>: index + 1}</span>
