@@ -26,10 +26,8 @@ const Modal = ({ children, onClose }) => {
             <>
                 <ModalOverlay onClose={onClose}/>
                 <div className={styles.modal}>
-                    <div className={styles.modal_table}>
-                        <button className={styles.btn_close} onClick={onClose}>x</button>
-                        {children}
-                    </div>
+                    <button className={styles.btn_close} onClick={onClose}>x</button>
+                    {children}
                 </div>
             </>
         ),

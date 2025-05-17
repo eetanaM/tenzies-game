@@ -1,10 +1,14 @@
 import React from "react"
 import Modal from "../Modal/Modal"
 
+import styles from "./Results.module.css"
+
 export default function Results({closeResults, movesCounter}) {
     return (
         <Modal onClose={closeResults}>
-            Вы справились за {movesCounter} ходов!
+            <div className={styles.modal_table}>
+                Вы справились за {movesCounter} ходов!
+            </div>
         </Modal>
     )
 }
