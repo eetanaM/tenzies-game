@@ -1,0 +1,72 @@
+.wrapper {
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+}
+
+.menu_button {
+    position: relative;
+    border: none;
+    height: 35px;
+    width: 35px;
+    top: 80px;
+    left: 30%;
+}
+
+.menu_button img {
+    height: 35px;
+    width: 35px;
+}
+
+.nav_container {
+    height: 95vh;
+    width: 80vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(80, 53, 255, 0.9);
+    transition: left 0.2s linear;
+    border-radius: 20px;
+}
+
+.not_loged_in {
+    justify-content: center;
+}
+
+.nav_profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color:aliceblue
+}
+
+.nav_container > a, .nav_container > button {
+    background-color: transparent;
+    border: none;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.btn_close {
+    position: absolute;
+    z-index: 9999;
+    right: 30px;
+    top: 5px;
+    height: 20px;
+    width: 20px;
+    font-size: 3.3rem;
+    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    color: aliceblue;
+}

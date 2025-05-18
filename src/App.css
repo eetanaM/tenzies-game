@@ -44,6 +44,7 @@ main{
   align-items: center;
   text-align: center;
   color: #4A4E74;
+  text-wrap: balance;
 }
 
 .main--layout-flipboard {
@@ -72,4 +73,10 @@ main{
 
 .main--layout-button:active {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+@media screen and (max-width:700px){
+  .main--layout{
+    width: 75%
+  }
 }

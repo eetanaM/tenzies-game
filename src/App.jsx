@@ -3,9 +3,10 @@ import { Route, Routes } from 'react-router-dom'
 
 import { auth, db } from './api/firebase/firebase.api'
 import { onAuthStateChanged, signInAnonymously, signOut } from 'firebase/auth'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 
 import Layout from './components/Layout/Layout'
+import MobileLayout from './components/MobileLayout/MobileLayout'
 import HomePage from './pages/HomePage/HomePage'
 import RatingPage from './pages/RatingPage/RatingPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
@@ -16,21 +17,39 @@ function App() {
 
   const [user, setUser] = useState({
     userName: '',
-    uid: ''
+    uid: '',
+    record: 0,
   })
-  const [isSigned, setIsSigned] = useState(false)
+  const [isSigned, setIsSigned] = useState(false);
+  const [deviceWidth, setDeviceWidth] = useState(0);
 
   useEffect(() => {
+      setDeviceWidth(window.innerWidth)
       const authListener = onAuthStateChanged(auth, function (user) {
           if (user) {
-            // User is signed in.
+            // User is signed in. Load user's info
             setIsSigned(true)
             if (user.isAnonymous) {
               setUser({
                 userName: `Guest`,
-                uid: user.uid
+                uid: user.uid,
+                record: 0
               })
             }
+            const userRef = doc(db, "users", user.uid);
+            const querySnapshot = getDoc(userRef)
+            querySnapshot
+                .then(response => {
+                    const user = response.data();
+                    setUser({
+                      userName: user.userName,
+                      record: user.record,
+                      uid: user.uid,
+                    })
+                })
+                .catch(e => {
+                    console.log(e)
+                })
           } else {
             // User is signed out.
             setUser(null)
@@ -70,15 +89,32 @@ function App() {
     }
   }, [auth, db])
 
-  return (
-    <Routes>
-      <Route path='/' element={<Layout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>}>
-        <Route index element={<HomePage />} />
-        <Route path='profile' element={<ProfilePage />}/>
-        <Route path='rating' element={<RatingPage />}/>
-      </Route>
-    </Routes>
-  )
+  console.log(deviceWidth)
+
+  if (deviceWidth >= 700) {
+    return (
+      <Routes>
+        <Route path='/' element={<Layout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>}>
+          <Route index element={<HomePage />} />
+          <Route path='profile' element={<ProfilePage user={user} />}/>
+          <Route path='rating' element={<RatingPage />}/>
+        </Route>
+      </Routes>
+    )
+  }
+
+  if (deviceWidth < 700) {
+    return (
+      <Routes>
+        <Route path='/' element={<MobileLayout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>}>
+          <Route index element={<HomePage />} />
+          <Route path='profile' element={<ProfilePage user={user} />}/>
+          <Route path='rating' element={<RatingPage />}/>
+        </Route>
+      </Routes>
+    )
+  }
+
 }
 
 export default App

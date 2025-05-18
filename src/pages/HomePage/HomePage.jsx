@@ -103,7 +103,7 @@ const HomePage = () => {
             {tenzies ? <Confetti width={window.innerWidth}/> : null}
             {resultsShown ? <Results closeResults={closeResults} movesCounter={movesCounter}/> : ""}
             <h1>Tenzies</h1>
-            <h3>Бросайте кубики до тех пор, пока все значения не будут одинаковыми. Нажимайте на кубики со значением, которое хотите закрепить, между бросками</h3>
+            <h3>Бросайте кубики до тех пор, пока все значения не станут одинаковыми. Нажимайте на кубики с тем значением, которое хотите закрепить, между бросками</h3>
             <div className='main--layout-flipboard'>
               {diceContent}
             </div>
