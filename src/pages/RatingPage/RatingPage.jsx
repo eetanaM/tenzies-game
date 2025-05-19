@@ -47,19 +47,19 @@ const RatingPage = () => {
 
     if (loading) {
         return (
-            <div className='main--layout'>
+            <>
                 <div className={styles.rating_container}>
                     <header className={styles.rating_header}>
                         <span>Загрузка...</span>
                     </header>
                 </div>
-            </div >
+            </>
         )
     }
 
 
     return (
-        <div className='main--layout'>
+        <>
             <div className={styles.rating_container}>
                 <header className={styles.rating_header}>
                     <span>Лучшие результаты</span>
@@ -71,7 +71,7 @@ const RatingPage = () => {
                 </p>
                 {usersRatings}
             </div>
-        </div >
+        </>
     )
 }
 

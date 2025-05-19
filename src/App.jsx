@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useDeviceDetect } from './hooks/useDeviceDetect'
 import { Route, Routes } from 'react-router-dom'
 
 import { auth, db } from './api/firebase/firebase.api'
@@ -12,7 +13,6 @@ import RatingPage from './pages/RatingPage/RatingPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 
 import './App.css'
-import { useDeviceDetect } from './hooks/useDeviceDetect'
 
 function App() {
 

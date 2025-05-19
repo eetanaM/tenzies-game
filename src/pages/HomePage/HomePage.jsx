@@ -99,7 +99,7 @@ const HomePage = () => {
       }, [dice])
 
       return (
-          <div className='main--layout'>
+          <>
             {tenzies ? <Confetti width={window.innerWidth}/> : null}
             {resultsShown ? <Results closeResults={closeResults} movesCounter={movesCounter}/> : ""}
             <h1>Tenzies</h1>
@@ -111,7 +111,7 @@ const HomePage = () => {
               {tenzies ? "Новая игра" : "Бросить"}
             </button >
             <h3>Ходов сделано: {movesCounter}</h3>
-          </div>
+          </>
       )
 }
 

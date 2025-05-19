@@ -12,7 +12,9 @@ const Layout = (props) => {
         <div className={styles.wrapper}>
             <SideBar user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>
             <main>
-                <Outlet />
+                <div className='main--layout'>
+                    <Outlet />
+                </div>
             </main>
         </div>
     )

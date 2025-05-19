@@ -58,13 +58,15 @@ const MobileLayout = ({ user, isSigned, toggleSignIn }) => {
             }
             <div className={styles.wrapper}>
                 <main>
-                    <button
-                        className={styles.menu_button}
-                        onClick={openMenu}
-                    >
-                        <img src={menu_img} alt="menu button image" />
-                    </button>
-                    <Outlet />
+                    <div className='main--layout'>
+                        <button
+                            className={styles.menu_button}
+                            onClick={openMenu}
+                        >
+                            <img src={menu_img} alt="menu button image" />
+                        </button>
+                        <Outlet />
+                    </div>
                 </main>
             </div>
         </>
