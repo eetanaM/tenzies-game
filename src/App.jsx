@@ -12,8 +12,11 @@ import RatingPage from './pages/RatingPage/RatingPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 
 import './App.css'
+import { useDeviceDetect } from './hooks/useDeviceDetect'
 
 function App() {
+
+  const { isMobile } = useDeviceDetect();
 
   const [user, setUser] = useState({
     userName: '',
@@ -21,10 +24,8 @@ function App() {
     record: 0,
   })
   const [isSigned, setIsSigned] = useState(false);
-  const [deviceWidth, setDeviceWidth] = useState(0);
 
   useEffect(() => {
-      setDeviceWidth(window.innerWidth)
       const authListener = onAuthStateChanged(auth, function (user) {
           if (user) {
             // User is signed in. Load user's info
@@ -89,32 +90,20 @@ function App() {
     }
   }, [auth, db])
 
-  console.log(deviceWidth)
-
-  if (deviceWidth >= 700) {
-    return (
-      <Routes>
-        <Route path='/' element={<Layout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>}>
-          <Route index element={<HomePage />} />
-          <Route path='profile' element={<ProfilePage user={user} />}/>
-          <Route path='rating' element={<RatingPage />}/>
-        </Route>
-      </Routes>
-    )
-  }
-
-  if (deviceWidth < 700) {
-    return (
-      <Routes>
-        <Route path='/' element={<MobileLayout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>}>
-          <Route index element={<HomePage />} />
-          <Route path='profile' element={<ProfilePage user={user} />}/>
-          <Route path='rating' element={<RatingPage />}/>
-        </Route>
-      </Routes>
-    )
-  }
-
+  return (
+    <Routes>
+      <Route path='/' element={
+        isMobile ?
+        <MobileLayout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>
+        :
+        <Layout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>
+      }>
+        <Route index element={<HomePage />} />
+        <Route path='profile' element={<ProfilePage user={user} />}/>
+        <Route path='rating' element={<RatingPage />}/>
+      </Route>
+    </Routes>
+  )
 }
 
 export default App
