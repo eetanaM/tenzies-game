@@ -1,0 +1,93 @@
+.profile {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.profile > h2 {
+    font-size: 2rem;
+    margin-top: 20%;
+    margin-bottom: 10%;
+}
+
+.avatar {
+    margin-bottom: 10px;
+    height: 150px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.profile > i {
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 10%;
+    width: 50%;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.btn {
+  width: 150px;
+  min-height: 50px;
+  background: #5035FF;
+  border-radius: 3.81277px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.name {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 10%;
+}
+
+.btn_close {
+    position: absolute;
+    z-index: 9999;
+    right: 0;
+    top: -70px;
+    height: fit-content;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.nameForm {
+    height: 50px;
+    width: 300px;
+}
+
+.nameForm > input {
+    height: 100%;
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+.error {
+    color: red;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.submitButton {
+  position: absolute;
+  top: 170%;
+  left: 70%;
+  transform: translate(-50%, 0);
+  width: 150px;
+  min-height: 30px;
+  background: #5035FF;
+  border-radius: 3.81277px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 0.7rem;
+  cursor: pointer;
+}

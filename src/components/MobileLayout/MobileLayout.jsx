@@ -9,11 +9,23 @@ import styles from './MobileLayout.module.css'
 
 const MobileLayout = ({ user, isSigned, toggleSignIn, isModalOpened, openModal, closeModal }) => {
 
+    const [isMenuOpened, setIsMenuOpened] = useState(false)
+
+    const openMenu = () => {
+        setIsMenuOpened(true)
+        openModal()
+    }
+
+    const closeMenu = () => {
+        setIsMenuOpened(false)
+        closeModal
+    }
+
     return (
         <>
-            {isModalOpened ?
-                <Modal onClose={closeModal}>
-                    <button className={styles.btn_close} onClick={closeModal}>x</button>
+            {isModalOpened && isMenuOpened ?
+                <Modal onClose={closeMenu}>
+                    <button className={styles.btn_close} onClick={closeMenu}>x</button>
                     <nav className={`${styles.nav_container} ${!isSigned && styles.not_loged_in}`}>
                         {isSigned
                         ? <>
@@ -21,13 +33,13 @@ const MobileLayout = ({ user, isSigned, toggleSignIn, isModalOpened, openModal, 
                                 <img src={`/src/img/avatars/${user.userImage}.png`} alt="Аватар" />
                                 {user.userName}
                             </div>
-                            <NavLink to="/" onClick={closeModal}>
+                            <NavLink to="/" onClick={closeMenu}>
                                 Играть
                             </NavLink>
-                            <NavLink to="/profile" onClick={closeModal}>
+                            <NavLink to="/profile" onClick={closeMenu}>
                                 Профиль
                             </NavLink>
-                            <NavLink to="/rating" onClick={closeModal}>
+                            <NavLink to="/rating" onClick={closeMenu}>
                                 Рейтинг
                             </NavLink>
                             <button onClick={toggleSignIn}>
@@ -50,7 +62,7 @@ const MobileLayout = ({ user, isSigned, toggleSignIn, isModalOpened, openModal, 
                     <div className='main--layout'>
                         <button
                             className={styles.menu_button}
-                            onClick={openModal}
+                            onClick={openMenu}
                         >
                             <img src={menu_img} alt="menu button image" />
                         </button>
