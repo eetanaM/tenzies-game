@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom'
 
-import userImage from '../../img/empty-user1.png'
-
 import styles from './SideBar.module.css'
 
 const SideBar = (props) => {
@@ -13,7 +11,7 @@ const SideBar = (props) => {
               {isSigned
               ? <>
                   <div className={styles.sidebar_profile}>
-                      <img src={userImage} alt="Аватар" />
+                      <img src={`/src/img/avatars/${user.userImage}.png`} alt="Аватар" />
                       {user.userName}
                   </div>
                   <NavLink to="/">

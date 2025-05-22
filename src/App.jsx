@@ -22,8 +22,18 @@ function App() {
     userName: '',
     uid: '',
     record: 0,
+    userImage: 'empty'
   })
   const [isSigned, setIsSigned] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
+  function openModal() {
+    setIsModalOpened(true)
+  }
+
+  function closeModal() {
+    setIsModalOpened(false)
+  }
 
   useEffect(() => {
       const authListener = onAuthStateChanged(auth, function (user) {
@@ -34,7 +44,8 @@ function App() {
               setUser({
                 userName: `Guest`,
                 uid: user.uid,
-                record: 0
+                record: 0,
+                userImage: 'empty'
               })
             }
             const userRef = doc(db, "users", user.uid);
@@ -46,6 +57,7 @@ function App() {
                       userName: user.userName,
                       record: user.record,
                       uid: user.uid,
+                      userImage: user.userImage,
                     })
                 })
                 .catch(e => {
@@ -94,12 +106,28 @@ function App() {
     <Routes>
       <Route path='/' element={
         isMobile ?
-        <MobileLayout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>
+        <MobileLayout
+          user={user}
+          isSigned={isSigned}
+          toggleSignIn={toggleSignIn}
+          isModalOpened={isModalOpened}
+          openModal={openModal}
+          closeModal={closeModal}
+        />
         :
         <Layout user={user} isSigned={isSigned} toggleSignIn={toggleSignIn}/>
       }>
         <Route index element={<HomePage />} />
-        <Route path='profile' element={<ProfilePage user={user} />}/>
+        <Route path='profile'
+          element={
+            <ProfilePage
+              user={user}
+              isModalOpened={isModalOpened}
+              openModal={openModal}
+              closeModal={closeModal}
+            />
+          }
+        />
         <Route path='rating' element={<RatingPage />}/>
       </Route>
     </Routes>

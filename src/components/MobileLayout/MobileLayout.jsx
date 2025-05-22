@@ -4,41 +4,30 @@ import { useState } from 'react'
 import Modal from '../Modal/Modal'
 
 import menu_img from "../../img/menu50.png"
-import userImage from '../../img/empty-user1.png'
 
 import styles from './MobileLayout.module.css'
 
-const MobileLayout = ({ user, isSigned, toggleSignIn }) => {
-
-    const [isMenuShown, setIsMenuShown] = useState(false)
-
-    function openMenu() {
-        setIsMenuShown(true)
-    }
-
-    function closeMenu() {
-        setIsMenuShown(false)
-    }
+const MobileLayout = ({ user, isSigned, toggleSignIn, isModalOpened, openModal, closeModal }) => {
 
     return (
         <>
-            {isMenuShown ?
-                <Modal onClose={closeMenu}>
-                    <button className={styles.btn_close} onClick={closeMenu}>x</button>
+            {isModalOpened ?
+                <Modal onClose={closeModal}>
+                    <button className={styles.btn_close} onClick={closeModal}>x</button>
                     <nav className={`${styles.nav_container} ${!isSigned && styles.not_loged_in}`}>
                         {isSigned
                         ? <>
                             <div className={styles.nav_profile}>
-                                <img src={userImage} alt="Аватар" />
+                                <img src={`/src/img/avatars/${user.userImage}.png`} alt="Аватар" />
                                 {user.userName}
                             </div>
-                            <NavLink to="/" onClick={closeMenu}>
+                            <NavLink to="/" onClick={closeModal}>
                                 Играть
                             </NavLink>
-                            <NavLink to="/profile" onClick={closeMenu}>
+                            <NavLink to="/profile" onClick={closeModal}>
                                 Профиль
                             </NavLink>
-                            <NavLink to="/rating" onClick={closeMenu}>
+                            <NavLink to="/rating" onClick={closeModal}>
                                 Рейтинг
                             </NavLink>
                             <button onClick={toggleSignIn}>
@@ -61,7 +50,7 @@ const MobileLayout = ({ user, isSigned, toggleSignIn }) => {
                     <div className='main--layout'>
                         <button
                             className={styles.menu_button}
-                            onClick={openMenu}
+                            onClick={openModal}
                         >
                             <img src={menu_img} alt="menu button image" />
                         </button>
