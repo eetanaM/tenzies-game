@@ -1,8 +1,13 @@
 import firebaseConfig from "./config/config.js";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(app);
+export const loadUser = (database, collection, field) => {
+  const userRef = doc(database, collection, field);
+  const querySnapshot = getDoc(userRef);
+  return querySnapshot;
+};

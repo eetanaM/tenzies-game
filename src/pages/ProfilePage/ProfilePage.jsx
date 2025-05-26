@@ -1,19 +1,43 @@
 import { useState } from 'react'
+
+import { doc, updateDoc } from 'firebase/firestore'
+import { auth, db } from '../../api/firebase/firebase.api'
+
 import Modal from '../../components/Modal/Modal'
+import ImageList from '../../components/ImageList/ImageList'
 
 import style from './ProfilePage.module.css'
 
-const ProfilePage = ({ user, isModalOpened, openModal, closeModal }) => {
+const ProfilePage = ({ user, isModalOpened, openModal, closeModal, updateUser }) => {
 
-    const [isFormOpened, setIsFormOpened] = useState(false)
+    if (user.userImage === 'empty') {
+        user.userImage = 'empty-black'
+    }
 
-    const openForm = () => {
-        setIsFormOpened(true)
+    const [isFormOpened, setIsFormOpened] = useState(false);
+    const [isImageListOpened, setIsImageListOpened] = useState(false);
+
+    const openInstance = (instanceName) => {
+        if (instanceName === 'form')
+            {
+                setIsFormOpened(true)
+            }
+        if (instanceName === 'imageList')
+            {
+                setIsImageListOpened(true)
+            }
         openModal()
     }
 
-    const closeForm = () => {
-        setIsFormOpened(false)
+    const closeInstance = (instanceName) => {
+        if (instanceName === 'form')
+            {
+                setIsFormOpened(false)
+            }
+        if (instanceName === 'imageList')
+            {
+                setIsImageListOpened(false)
+            }
         closeModal()
     }
 
@@ -33,7 +57,8 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal }) => {
         setFormData({
             name: '',
         })
-        closeForm()
+        closeInstance('form')
+        closeInstance('imageList')
     }
 
     const validateForm = () => {
@@ -60,15 +85,37 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal }) => {
         }));
     };
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         if (!validateForm()) {
             return
         }
+
+        try {
+            // Update user's name
+            const currentUserRef = doc(db, "users", auth.currentUser.uid)
+            await updateDoc(currentUserRef, 'userName', formData.name)
+            updateUser(formData.name)
+        } catch (e) {
+        console.error("Error updating user's name: ", e)
+        }
+
         setFormData({
             name: '',
         })
-        closeForm()
+        closeInstance('form')
+    }
+
+    async function handleImageChange(imageId) {
+        try {
+            // Update user's image
+            const currentUserRef = doc(db, "users", auth.currentUser.uid)
+            await updateDoc(currentUserRef, 'userImage', imageId)
+            updateUser(null, imageId)
+        } catch (e) {
+        console.error("Error updating user's image: ", e)
+        }
+        closeInstance('imageList')
     }
 
     return (
@@ -91,16 +138,23 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal }) => {
                 </Modal>
             : null
             }
+            {isModalOpened && isImageListOpened ?
+                <Modal onClose={resetAndClose}>
+                    <button className={style.btn_close} onClick={resetAndClose}>x</button>
+                    <ImageList handleImageChange={handleImageChange}/>
+                </Modal>
+            : null
+            }
             <div className={style.profile}>
                 <h2>
                     Данные профиля
                 </h2>
-                <img className={style.avatar} src={`/src/img/avatars/${user.userImage}-black.png`}alt="avatar" />
+                <img className={style.avatar} src={`/src/img/avatars/${user.userImage}.png`}alt="avatar" onClick={() => openInstance('imageList')}/>
                 <i>* щелкните по аватару, чтобы изменить изображение</i>
                 <p className={style.name}>
                     {user.userName}
                 </p>
-                <button className={style.btn} onClick={openForm}>
+                <button className={style.btn} onClick={() => openInstance('form')}>
                     Изменить имя
                 </button>
             </div>

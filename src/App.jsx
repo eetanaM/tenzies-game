@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDeviceDetect } from './hooks/useDeviceDetect'
 import { Route, Routes } from 'react-router-dom'
 
-import { auth, db } from './api/firebase/firebase.api'
+import { auth, db, loadUser } from './api/firebase/firebase.api'
 import { onAuthStateChanged, signInAnonymously, signOut } from 'firebase/auth'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
 
@@ -19,13 +19,21 @@ function App() {
   const { isMobile } = useDeviceDetect();
 
   const [user, setUser] = useState({
-    userName: '',
-    uid: '',
+    userName: 'Guest',
+    uid: 'none',
     record: 0,
     userImage: 'empty'
   })
   const [isSigned, setIsSigned] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
+
+  function updateUser(name = false, image = false) {
+    setUser(prev => ({
+      ...prev,
+      userName: name ? name : prev.userName,
+      userImage: image ? image: prev.userImage,
+    }))
+  }
 
   function openModal() {
     setIsModalOpened(true)
@@ -38,31 +46,20 @@ function App() {
   useEffect(() => {
       const authListener = onAuthStateChanged(auth, function (user) {
           if (user) {
-            // User is signed in. Load user's info
-            setIsSigned(true)
-            if (user.isAnonymous) {
-              setUser({
-                userName: `Guest`,
-                uid: user.uid,
-                record: 0,
-                userImage: 'empty'
+            loadUser(db, 'users', user.uid)
+              .then((response) => {
+                const user = response.data();
+                setUser({
+                  userName: user.userName,
+                  record: user.record,
+                  uid: user.uid,
+                  userImage: user.userImage,
+                });
+                setIsSigned(true);
               })
-            }
-            const userRef = doc(db, "users", user.uid);
-            const querySnapshot = getDoc(userRef)
-            querySnapshot
-                .then(response => {
-                    const user = response.data();
-                    setUser({
-                      userName: user.userName,
-                      record: user.record,
-                      uid: user.uid,
-                      userImage: user.userImage,
-                    })
-                })
-                .catch(e => {
-                    console.log(e)
-                })
+              .catch((e) => {
+                console.log(e);
+              });
           } else {
             // User is signed out.
             setUser(null)
@@ -92,9 +89,10 @@ function App() {
         // Add new user as Guest to database with record = 0
         const newUserRef = doc(db, "users", auth.currentUser.uid)
         await setDoc(newUserRef, {
-          userName: "Guest",
+          userName: `Guest`,
           uid: auth.currentUser.uid,
-          record: 0
+          record: 0,
+          userImage: 'empty'
         })
       } catch (e) {
         console.error("Error adding user: ", e)
@@ -125,6 +123,7 @@ function App() {
               isModalOpened={isModalOpened}
               openModal={openModal}
               closeModal={closeModal}
+              updateUser={updateUser}
             />
           }
         />
