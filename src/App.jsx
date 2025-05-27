@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import { auth, db, loadUser } from './api/firebase/firebase.api'
 import { onAuthStateChanged, signInAnonymously, signOut } from 'firebase/auth'
-import { doc, setDoc, getDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 
 import Layout from './components/Layout/Layout'
 import MobileLayout from './components/MobileLayout/MobileLayout'
@@ -22,8 +22,9 @@ function App() {
     userName: 'Guest',
     uid: 'none',
     record: 0,
-    userImage: 'empty'
+    userImage: 0
   })
+
   const [isSigned, setIsSigned] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
 
@@ -92,7 +93,7 @@ function App() {
           userName: `Guest`,
           uid: auth.currentUser.uid,
           record: 0,
-          userImage: 'empty'
+          userImage: 0
         })
       } catch (e) {
         console.error("Error adding user: ", e)
