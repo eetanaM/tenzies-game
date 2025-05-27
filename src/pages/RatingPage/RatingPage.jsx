@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { db, auth } from '../../api/firebase/firebase.api'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 
-import crown from '../../img/crown.png'
 import styles from './RatingPage.module.css'
 
 const RatingPage = () => {
@@ -38,7 +37,7 @@ const RatingPage = () => {
         if (index > 9) return
         return (
             <p className={`${styles.rating_line} ${isCurrentUser && styles.current_user}`} key={user.uid}>
-                <span>{index === 0 ? <img src={crown} style={{height: "20px", width: "20px"}}></img>: index + 1}</span>
+                <span>{index === 0 ? <img src={`/img/crown.png`} style={{height: "20px", width: "20px"}}></img>: index + 1}</span>
                 <span>{user.userName}</span>
                 <span>{user.record}</span>
             </p>

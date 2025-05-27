@@ -6,37 +6,16 @@ import { auth, db } from '../../api/firebase/firebase.api'
 import Modal from '../../components/Modal/Modal'
 import ImageList from '../../components/ImageList/ImageList'
 
-import image1 from "../../img/avatars/1.png"
-import image2 from "../../img/avatars/2.png"
-import image3 from "../../img/avatars/3.png"
-import image4 from "../../img/avatars/4.png"
-import emptyImageBlack from "../../img/avatars/empty-black.png"
-
 import style from './ProfilePage.module.css'
 
 const ProfilePage = ({ user, isModalOpened, openModal, closeModal, updateUser }) => {
 
+    if (user.userImage === 'empty') {
+        user.userImage = 'empty-black'
+    }
+
     const [isFormOpened, setIsFormOpened] = useState(false);
     const [isImageListOpened, setIsImageListOpened] = useState(false);
-    const [profileImage, setProfileImage] = useState(emptyImageBlack)
-
-    useEffect(() => {
-        switch (user.userImage) {
-            case 1:
-                setProfileImage(image1);
-                break;
-            case 2:
-                setProfileImage(image2);
-                break;
-            case 3:
-                setProfileImage(image3);
-                break;
-            case 4:
-                setProfileImage(image4);
-                break;
-        }
-    }, [user.userImage])
-
 
     const openInstance = (instanceName) => {
         if (instanceName === 'form')
@@ -170,7 +149,7 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal, updateUser })
                 <h2>
                     Данные профиля
                 </h2>
-                <img className={style.avatar} src={profileImage} alt="avatar" onClick={() => openInstance('imageList')}/>
+                <img className={style.avatar} src={`/img/avatars/${user.userImage}.png`} alt="avatar" onClick={() => openInstance('imageList')}/>
                 <i>* щелкните по аватару, чтобы изменить изображение</i>
                 <p className={style.name}>
                     {user.userName}

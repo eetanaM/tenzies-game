@@ -22,7 +22,7 @@ function App() {
     userName: 'Guest',
     uid: 'none',
     record: 0,
-    userImage: 0
+    userImage: 'empty'
   })
 
   const [isSigned, setIsSigned] = useState(false);
@@ -93,7 +93,7 @@ function App() {
           userName: `Guest`,
           uid: auth.currentUser.uid,
           record: 0,
-          userImage: 0
+          userImage: 'empty'
         })
       } catch (e) {
         console.error("Error adding user: ", e)

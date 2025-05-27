@@ -1,38 +1,13 @@
 import { Outlet, NavLink } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Modal from '../Modal/Modal'
-
-import menu_img from "../../img/menu50.png"
-import image1 from "../../img/avatars/1.png"
-import image2 from "../../img/avatars/2.png"
-import image3 from "../../img/avatars/3.png"
-import image4 from "../../img/avatars/4.png"
-import emptyImage from "../../img/avatars/empty.png"
 
 import styles from './MobileLayout.module.css'
 
 const MobileLayout = ({ user, isSigned, toggleSignIn, isModalOpened, openModal, closeModal }) => {
 
     const [isMenuOpened, setIsMenuOpened] = useState(false)
-    const [profileImage, setProfileImage] = useState(emptyImage)
-
-    useEffect(() => {
-        switch (user.userImage) {
-            case 1:
-                setProfileImage(image1);
-                break;
-            case 2:
-                setProfileImage(image2);
-                break;
-            case 3:
-                setProfileImage(image3);
-                break;
-            case 4:
-                setProfileImage(image4);
-                break;
-        }
-    }, [user.userImage])
 
     const openMenu = () => {
         setIsMenuOpened(true)
@@ -53,7 +28,7 @@ const MobileLayout = ({ user, isSigned, toggleSignIn, isModalOpened, openModal, 
                         {isSigned
                         ? <>
                             <div className={styles.nav_profile}>
-                                <img src={profileImage} alt="Аватар" />
+                                <img src={`/img/avatars/${user.userImage}.png`} alt="Аватар" />
                                 {user.userName}
                             </div>
                             <NavLink to="/" onClick={closeMenu}>
