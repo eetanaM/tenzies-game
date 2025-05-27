@@ -62,7 +62,7 @@ const MobileLayout = ({ user, isSigned, toggleSignIn, isModalOpened, openModal, 
                             className={styles.menu_button}
                             onClick={openMenu}
                         >
-                            <img src={menu_img} alt="menu button image" />
+                            <img src={"/img/menu50.png"} alt="menu button image" />
                         </button>
                         <Outlet />
                     </div>
