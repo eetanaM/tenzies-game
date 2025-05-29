@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import { auth, db, loadUser } from './api/firebase/firebase.api'
 import { onAuthStateChanged, signInAnonymously, signOut } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
+import { v4 as uuidv4 } from 'uuid'
 
 import Layout from './components/Layout/Layout'
 import MobileLayout from './components/MobileLayout/MobileLayout'
@@ -88,9 +89,10 @@ function App() {
       });
       try {
         // Add new user as Guest to database with record = 0
+        const randomID = uuidv4().substring(0,5).toUpperCase()
         const newUserRef = doc(db, "users", auth.currentUser.uid)
         await setDoc(newUserRef, {
-          userName: `Guest`,
+          userName: `Guest${randomID}`,
           uid: auth.currentUser.uid,
           record: 0,
           userImage: 'empty'
