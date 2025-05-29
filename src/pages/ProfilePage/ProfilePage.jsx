@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { doc, updateDoc } from 'firebase/firestore'
-import { auth, db } from '../../api/firebase/firebase.api'
+import { auth, db, loadAllUsers } from '../../api/firebase/firebase.api'
 
 import Modal from '../../components/Modal/Modal'
 import ImageList from '../../components/ImageList/ImageList'
@@ -16,6 +16,25 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal, updateUser })
 
     const [isFormOpened, setIsFormOpened] = useState(false);
     const [isImageListOpened, setIsImageListOpened] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [errors, setErrors] = useState({
+        nameIsEmpty: false,
+        nameIsTooLarge: false,
+        nameAlreadyExists: false,
+    })
+    const [formData, setFormData] = useState({
+        name: '',
+    });
+
+    useEffect(() => {
+        loadAllUsers()
+            .then(response => {
+                const recievedUsers = response.docs.map(queryDoc => {
+                    return queryDoc.data()
+                });
+                setUsers(recievedUsers)
+            })
+    }, [])
 
     const openInstance = (instanceName) => {
         if (instanceName === 'form')
@@ -41,14 +60,6 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal, updateUser })
         closeModal()
     }
 
-    const [errors, setErrors] = useState({
-        nameIsEmpty: false,
-        nameIsTooLarge: false,
-    })
-    const [formData, setFormData] = useState({
-        name: '',
-    });
-
     const resetAndClose = () => {
         setErrors({
             nameIsEmpty: false,
@@ -66,11 +77,14 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal, updateUser })
         const newErrors = {
           nameIsEmpty: formData.name.trim() === '',
           nameIsTooLarge: formData.name.length > 10,
+          nameAlreadyExists: users.findIndex((user) => {
+            return user.userName === formData.name
+          }) >= 0,
         };
 
         setErrors(newErrors);
 
-        if (newErrors.nameIsEmpty || newErrors.nameIsTooLarge) {
+        if (newErrors.nameIsEmpty || newErrors.nameIsTooLarge || newErrors.nameAlreadyExists) {
           valid = false;
         }
 
@@ -133,6 +147,7 @@ const ProfilePage = ({ user, isModalOpened, openModal, closeModal, updateUser })
                         />
                         {errors.nameIsEmpty && <p className={style.error}>Введите имя</p>}
                         {errors.nameIsTooLarge && <p className={style.error}>Имя не может содержать более 10 символов</p>}
+                        {errors.nameAlreadyExists && <p className={style.error}>Пользователь с таким именем уже существует</p>}
                         <button className={style.submitButton}>Подтвердить</button>
                     </form>
                 </Modal>
