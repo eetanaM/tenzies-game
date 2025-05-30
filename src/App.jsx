@@ -8,6 +8,7 @@ import { doc, setDoc } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
 
 import Layout from './components/Layout/Layout'
+import { OnlyAuth } from './components/ProtectedRoute/ProtectedRoute'
 import MobileLayout from './components/MobileLayout/MobileLayout'
 import HomePage from './pages/HomePage/HomePage'
 import RatingPage from './pages/RatingPage/RatingPage'
@@ -121,16 +122,19 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path='profile'
           element={
-            <ProfilePage
-              user={user}
-              isModalOpened={isModalOpened}
-              openModal={openModal}
-              closeModal={closeModal}
-              updateUser={updateUser}
+            <OnlyAuth user={user} element={
+              <ProfilePage
+                user={user}
+                isModalOpened={isModalOpened}
+                openModal={openModal}
+                closeModal={closeModal}
+                updateUser={updateUser}
+              />
+              }
             />
           }
         />
-        <Route path='rating' element={<RatingPage />}/>
+        <Route path='rating' element={<OnlyAuth user={user} element={<RatingPage />} />}/>
       </Route>
     </Routes>
   )
