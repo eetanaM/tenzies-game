@@ -1,11 +1,11 @@
 .container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 50px;
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
 
     background-color: rgba(80, 53, 255, 1);
     border-radius: 50px;
@@ -15,4 +15,16 @@
     height: 150px;
     width: 150px;
     cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+    .container {
+        height: 320px;
+        width: 320px;
+        gap: 30px;
+    }
+    .container > img {
+        height: 120px;
+        width: 120px;
+    }
 }
