@@ -1,17 +1,14 @@
 .wrapper {
     height: 100dvh;
-
-    display: flex;
-    align-items: center;
 }
 
 .menu_button {
-    position: absolute;
+    position: relative;
+    align-self: flex-end;
+    right: 50px;
     border: none;
     height: 35px;
     width: 35px;
-    top: 50px;
-    left: calc(100% - 150px);
     background-color: transparent;
 }
 
@@ -66,7 +63,7 @@
     position: absolute;
     z-index: 9999;
     right: 30px;
-    top: 5px;
+    top: 50px;
     height: fit-content;
     font-size: 3.3rem;
     font-weight: bold;

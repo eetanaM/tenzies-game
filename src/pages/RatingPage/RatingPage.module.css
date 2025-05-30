@@ -40,7 +40,7 @@
 }
 
 .rating_line_headers > span:first-child, .rating_line_headers > span:last-child {
-    min-width: 80px;
+    min-width: 50px;
     text-align: center;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .rating_line > span:first-child, .rating_line > span:last-child {
-    min-width: 80px;
+    min-width: 50px;
     text-align: center;
 }
 
